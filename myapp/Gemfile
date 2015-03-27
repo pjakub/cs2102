@@ -29,7 +29,7 @@ gem 'authlogic'#, github: 'binarylogic/authlogic', ref: 'e4b2990d6282f3f7b50249b
 
 gem 'closure-compiler'
 
-gem 'therubyracer'
+#gem 'therubyracer'
 
 gem 'twitter-bootstrap-rails'
 # Use ActiveModel has_secure_password

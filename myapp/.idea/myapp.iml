@@ -113,7 +113,6 @@
       <method />
     </configuration>
   </component>
-
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
@@ -159,9 +158,7 @@
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.2.11, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v4.0.3, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v1.8.2, rbenv: 2.2.1) [gem]" level="application" />
-
     <orderEntry type="library" scope="PROVIDED" name="libv8 (v3.16.14.7, rbenv: 2.2.1) [gem]" level="application" />
-
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.0.1, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.6.3, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mime-types (v2.4.3, rbenv: 2.2.1) [gem]" level="application" />
@@ -178,20 +175,16 @@
     <orderEntry type="library" scope="PROVIDED" name="railties (v4.2.0, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v10.4.2, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v4.2.0, rbenv: 2.2.1) [gem]" level="application" />
-
     <orderEntry type="library" scope="PROVIDED" name="sass (v3.4.13, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass-rails (v5.0.1, rbenv: 2.2.1) [gem]" level="application" />
-
     <orderEntry type="library" scope="PROVIDED" name="ref (v1.0.5, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="request_store (v1.1.0, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="scrypt (v1.2.1, rbenv: 2.2.1) [gem]" level="application" />
-
     <orderEntry type="library" scope="PROVIDED" name="sdoc (v0.4.1, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spring (v1.3.3, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.12.3, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.2.4, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.3.10, rbenv: 2.2.1) [gem]" level="application" />
-
     <orderEntry type="library" scope="PROVIDED" name="therubyracer (v0.12.1, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v0.19.1, rbenv: 2.2.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thread_safe (v0.3.5, rbenv: 2.2.1) [gem]" level="application" />
