@@ -22,6 +22,6 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     flash[:notice] = "Logout successful!"
     puts "logout successful"
-    redirect_to article_url
+    redirect_back_or_default articles_url
   end
 end
