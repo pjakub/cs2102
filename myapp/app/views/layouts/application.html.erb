@@ -20,7 +20,6 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -42,9 +41,9 @@
 
             <!-- TODO Change button_to to bootstrap format -->
 
-            <li> <%= button_to "Logout", @current_user_session,
+            <li style="padding-top:7px;"> <%= button_to "Logout", @current_user_session,
                                :method => :delete,
-                               :confirm => "Are you sure you want to logout?" %> </li>
+                               :confirm => "Are you sure you want to logout?", class:"btn btn-default"%> </li>
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->
