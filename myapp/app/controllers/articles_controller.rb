@@ -1,3 +1,5 @@
+require 'uri'
+
 class ArticlesController < ApplicationController
   before_filter :require_user, only: [:new, :create, :edit, :destroy]
   before_filter :article_owner_is_current, only: [:edit, :destroy]
@@ -8,8 +10,19 @@ class ArticlesController < ApplicationController
 
   def index
     puts Article.all.count
-    @articles = Article.all
-  end
+    category = Rack::Utils.parse_query URI(request.original_url).query
+    puts category
+      if category['category'] == "business"
+        puts "hello business"
+        @articles = Article.where(:category => 'business')
+      elsif category['category'] == "news"
+        @articles = Article.where(:category => 'news')
+      elsif category['category'] == "technology"
+        @articles = Article.where(:category => 'technology')
+      else
+        @articles = Article.all
+      end
+    end
 
   def edit
     if article_owner_is_current
@@ -40,7 +53,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
 
-    if @article.update(articles_params)
+    if @article.update(article_params)
       redirect_to @article
     else
       render 'edit'
@@ -54,9 +67,10 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
 
+
   private
     def article_params
-      params.require(:article).permit(:title, :text)
+      params.require(:article).permit(:title, :text, :category)
     end
 
     def article_owner_is_current

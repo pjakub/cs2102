@@ -1,7 +1,9 @@
 <h1> Listing Articles </h1>
 
-
-<%= link_to 'New Article', new_article_path %>
+<%= link_to "All", articles_path(:category => "all") %>
+<%= link_to "Business", articles_path(:category => "business") %>
+<%= link_to "News", articles_path(:category => "news") %>
+<%= link_to "Technology", articles_path(:category => "technology") %>
 
 <table>
 
@@ -9,20 +11,23 @@
 
     <th> Title </th>
     <th> Text </th>
+    <th> Category </th>
 
   </tr>
 
   <% @articles.each do |article| %>
 
-    <tr>
+      <tr>
 
-      <td> <%= article.title %> </td>
-      <td> <%= article.text %> </td>
-      <td> <%= link_to 'Show', article_path(article)  %> </td>
-      <td> <%= link_to 'Edit', edit_article_path(article) %> </td>
-      <td> <%= button_to 'Delete', article_path(article), method: :delete, data: {confirm: 'Are you sure?'}  %> </td>
-    </tr>
+        <td> <%= article.title %> </td>
+        <td> <%= article.text %> </td>
+        <td> <%= article.category %> </td>
+        <td> <%= link_to 'Show', article_path(article)  %> </td>
+        <td> <%= link_to 'Edit', edit_article_path(article) %> </td>
+        <td> <%= button_to 'Delete', article_path(article), method: :delete, data: {confirm: 'Are you sure?'}  %> </td>
+      </tr>
 
   <% end %>
 
 </table>
+
