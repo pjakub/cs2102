@@ -6,7 +6,7 @@ gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', github: 'rails/sass-rails'
+gem 'sass-rails' #, github: 'rails/sass-rails'
 # Use Bootstrap with SASS
 gem 'bootstrap-sass', '~> 3.3.1'
 # Use AutoPrefixer with Bootstrap to Add browser vendor prefixes automatically.
@@ -34,8 +34,6 @@ gem 'authlogic'#, github: 'binarylogic/authlogic', ref: 'e4b2990d6282f3f7b50249b
 gem 'closure-compiler'
 
 #gem 'therubyracer'
-
-gem 'twitter-bootstrap-rails'
 
 gem "socialization"
 

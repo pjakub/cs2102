@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328065652) do
+ActiveRecord::Schema.define(version: 20150329093811) do
 
   create_table "articles", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,11 +22,9 @@ ActiveRecord::Schema.define(version: 20150328065652) do
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id"
 
-<<<<<<< HEAD
   create_table "comments", force: :cascade do |t|
     t.string   "title",            default: ""
     t.text     "comment"
-    t.integer  "upvotes",          default: 0
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -94,8 +92,8 @@ ActiveRecord::Schema.define(version: 20150328065652) do
     t.datetime "updated_at"
   end
 
-  add_index "user_sessions", ["session_id"], name: "index_user_sessions.css_on_session_id"
-  add_index "user_sessions", ["updated_at"], name: "index_user_sessions.css_on_updated_at"
+  add_index "user_sessions", ["session_id"], name: "index_user_sessions_on_session_id"
+  add_index "user_sessions", ["updated_at"], name: "index_user_sessions_on_updated_at"
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",          default: "", null: false
@@ -113,8 +111,11 @@ ActiveRecord::Schema.define(version: 20150328065652) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["comment_id"], name: "index_users_on_comment_id"
 
 end

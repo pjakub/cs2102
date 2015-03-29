@@ -14,7 +14,8 @@
     <th> Category </th>
 
   </tr>
-
+  <br>
+  <%= link_to "New Article", new_article_path %>
   <% @articles.each do |article| %>
     <tr>
       <td> <%= article.comment.title %> </td>
