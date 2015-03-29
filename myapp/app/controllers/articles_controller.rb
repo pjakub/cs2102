@@ -1,6 +1,7 @@
 require 'uri'
 
 class ArticlesController < ApplicationController
+  impressionist :actions=>[:show, :index]
   before_filter :require_user, only: [:new, :create, :edit, :destroy]
   before_filter :article_owner_is_current, only: [:edit, :destroy]
 
@@ -9,7 +10,11 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.where(:category => params[:category])
+    if Article::PROPERTY_OPTIONS.has_key?(params[:category])
+      @articles = Article.where(:category => params[:category])
+    else
+      @articles = Article.all
+    end
   end
 
   def edit

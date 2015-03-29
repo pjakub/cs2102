@@ -1,9 +1,10 @@
 <h1> Listing Articles </h1>
 
-<%= Article::PROPERTY_OPTIONS.each do |category| %>
-    <%= link_to category[0], articles_path(:category => category[1]) %>
+<%= Article::PROPERTY_OPTIONS.each do |key, value| %>
+    <%= link_to value, articles_path(:category => key) %>
 <% end %>
-
+<br>
+<%= link_to "New Article", new_article_path %>
 
 <table>
 
@@ -12,15 +13,17 @@
     <th> Title </th>
     <th> Text </th>
     <th> Category </th>
+    <th> Views </th>
 
   </tr>
   <br>
-  <%= link_to "New Article", new_article_path %>
+
   <% @articles.each do |article| %>
     <tr>
       <td> <%= article.comment.title %> </td>
       <td> <%= article.comment.comment %> </td>
       <td> <%= article.category %> </td>
+      <td> <%= article.impressionist_count %> </td>
       <td> <%= link_to 'Show', article_path(article)  %> </td>
       <td> <%= link_to 'Edit', edit_article_path(article) %> </td>
       <td> <%= button_to 'Delete', article_path(article), method: :delete, data: {confirm: 'Are you sure?'}  %> </td>
