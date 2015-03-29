@@ -27,12 +27,20 @@ module ApplicationHelper
 
   end
 
-  def upvotes_of_commentable(object)
+  def number_of_likes_of_commentable(object)
       comment = object.comment
       unless comment.nil?
-        comment.upvotes
+        comment.likers(User).count
       end
 
+  end
+
+  def like_commentable(object)
+    if @current_user.likes?(object.comment)
+      @current_user.unlike!(object.comment)
+    else
+      @current_user.like!(object.comment)
+    end
   end
 
 end

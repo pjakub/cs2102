@@ -9,7 +9,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_article_path(@article) %><br>
+<label><%= number_of_likes_of_commentable(@article) %> Likes</label>
 
 <%= @posts.count %><label> ANSWERS</label><br>
 <% unless @user.blank? %>
