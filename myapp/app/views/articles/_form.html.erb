@@ -25,6 +25,11 @@
     </p>
 
     <p>
+      <%= f.label :category %><br>
+      <%= f.select :category, Article::PROPERTY_OPTIONS %>
+    </p>
+
+    <p>
       <%= f.submit %>
     </p>
 

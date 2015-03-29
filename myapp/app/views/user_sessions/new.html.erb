@@ -1,5 +1,6 @@
 <h1>Login</h1>
 
+
 <%= form_for @user_session do |f| %>
     <%= render "shared/error_messages", :target => @user_session %>
     <%= f.label :email %><br />
@@ -12,3 +13,4 @@
     <br />
     <%= f.submit "Login" %>
 <% end %>
+

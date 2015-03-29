@@ -1,13 +1,21 @@
-<p>
-  <strong>Title:</strong>
-  <%= @article.comment.title %>
-</p>
 
-<p>
-  <strong>Text:</strong>
-  <%= @article.comment.comment %>
-</p>
+<div class="span6" style="padding-top:30px;">
+    <p>
+      <strong>Title:</strong>
+      <%= @article.comment.title %>
+    </p>
 
+    <p>
+      <strong>Text:</strong>
+      <%= @article.comment.comment %>
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @article.category %>
+    </p>
+
+</div>
 
 <label><%= number_of_likes_of_commentable(@article) %> Likes</label>
 
