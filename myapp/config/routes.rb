@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  #get 'welcome/index'
 
-  resources :articles
+  resources :articles do
+    resources :posts do
+      resources :replies
+    end
+  end
 
   root 'articles#index'
 
@@ -11,7 +14,7 @@ Rails.application.routes.draw do
   resources :'user_sessions'
 
   get 'login' => "user_sessions#new",      :as => :login
-  get 'logout' => "user_sessions#destroy", :as => :logout
+  delete 'logout' => "user_sessions#destroy", :as => :logout
 
   resources :users  # give us our some normal resource routes for users
   resource :user, :as => 'account'  # a convenience route

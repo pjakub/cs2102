@@ -1,14 +1,56 @@
 <p>
   <strong>Title:</strong>
-  <%= @article.title %>
+  <%= @article.comment.title %>
 </p>
 
 <p>
   <strong>Text:</strong>
-  <%= @article.text %>
+  <%= @article.comment.comment %>
 </p>
 
 
-<%= link_to 'Edit', edit_article_path(@article) %>
-<%= link_to 'Show Articles', articles_path %>
+<%= link_to 'Edit', edit_article_path(@article) %><br>
+
+<%= @posts.count %><label> ANSWERS</label><br>
+<% unless @user.blank? %>
+   <label><%= @user.first_name %> <%= @user.last_name %></label><br>
+    <%= form_for [@article, @article.posts.build] do |f| %>
+        <textarea
+               placeholder="Write your answer"
+               id="comment"
+               name="comment"></textarea>
+        <%= f.submit %>
+    <% end %>
+<% end %>
+<br><br>
+
+<% if @posts.count>0 %>
+    <% @posts.each do |post| %>
+        <% unless post.id == nil %>
+            <label><%= user_name_of_commentable(post) %></label><br>
+            <label><%= comment_of_commentable(post) %></label>
+            <%= post.replies.count %><label> Comments</label><br>
+            <%= form_for [@article, post, post.replies.build] do |f| %>
+                <textarea
+                placeholder="Add a comment..."
+                id="comment"
+                name="comment"></textarea>
+                <%= f.submit %>
+            <% end %>
+            <% if post.replies.count > 0 %>
+                <% post.replies.each do |reply| %>
+                    <label><%= user_name_of_commentable(reply) %></label><br>
+                    <label><%= comment_of_commentable(reply) %></label><br>
+                <% end %>
+            <% end %>
+            <br><br>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+
+
+
 

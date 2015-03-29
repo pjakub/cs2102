@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  belongs_to :user
-  validates :title, presence: true,
-                    length: { minimum: 5 }
+  has_many :posts, dependent: :destroy
+  has_many :replies, dependent: :destroy
+  has_one :comment, as: :commentable
 end

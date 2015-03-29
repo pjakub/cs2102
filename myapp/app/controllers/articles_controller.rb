@@ -20,20 +20,31 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    @article  = Article.find(params[:id])
+    @posts    = @article.posts
+
+    current_user
+    @user = @current_user
+
   end
 
   def create
-    puts article_params
-    @article = @current_user.articles.build(article_params)
-    if @article.save
+    puts params[:comment]
+    comment = Comment.new
+    comment.title = params[:title]
+    comment.comment = params[:comment]
+    comment.user_id = @current_user.id
+
+    article = Article.new
+    article.comment = comment
+
+    if article.save
       puts "saved"
       redirect_to articles_path(@article)
     else
       puts "not saved"
       redirect_to articles_path
     end
-
 
   end
 
@@ -61,7 +72,7 @@ class ArticlesController < ApplicationController
 
     def article_owner_is_current
       @article = Article.find(params[:id])
-      if @article.user_id != @current_user.id
+      if @article.comment.user_id != @current_user.id
         store_location
         flash[:notice] = "You must be owner of thread to delete."
         redirect_to articles_path
