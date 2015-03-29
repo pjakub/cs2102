@@ -35,13 +35,13 @@
       <ul class="nav navbar-nav">
         <% if !current_user %>
             <li class="active"> <%= link_to "Register", new_account_path %> </li>
-            <li> <%= link_to "Log In", new_user_session_path %> </li>
+            <li> <%= link_to "Log In", login_path %> </li>
         <% else %>
             <li class="active"> <%= link_to "My Account", account_path %> </li>
 
             <!-- TODO Change button_to to bootstrap format -->
 
-            <li style="padding-top:7px;"> <%= button_to "Logout", @current_user_session,
+            <li style="padding-top:7px;"> <%= button_to "Logout", logout_path,
                                :method => :delete,
                                :confirm => "Are you sure you want to logout?", class:"btn btn-default"%> </li>
         <% end %>
