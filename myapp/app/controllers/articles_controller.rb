@@ -9,20 +9,8 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    puts Article.all.count
-    category = Rack::Utils.parse_query URI(request.original_url).query
-    puts category
-      if category['category'] == "business"
-        puts "hello business"
-        @articles = Article.where(:category => 'business')
-      elsif category['category'] == "news"
-        @articles = Article.where(:category => 'news')
-      elsif category['category'] == "technology"
-        @articles = Article.where(:category => 'technology')
-      else
-        @articles = Article.all
-      end
-    end
+    @articles = Article.where(:category => params[:category])
+  end
 
   def edit
     if article_owner_is_current

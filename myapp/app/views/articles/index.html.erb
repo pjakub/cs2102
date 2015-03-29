@@ -1,9 +1,9 @@
 <h1> Listing Articles </h1>
 
-<%= link_to "All", articles_path(:category => "all") %>
-<%= link_to "Business", articles_path(:category => "business") %>
-<%= link_to "News", articles_path(:category => "news") %>
-<%= link_to "Technology", articles_path(:category => "technology") %>
+<%= Article::PROPERTY_OPTIONS.each do |category| %>
+    <%= link_to category[0], articles_path(:category => category[1]) %>
+<% end %>
+
 
 <table>
 
