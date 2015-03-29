@@ -42,7 +42,6 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    puts params[:comment]
     comment = Comment.new
     comment.title = params[:title]
     comment.comment = params[:comment]
@@ -50,6 +49,10 @@ class ArticlesController < ApplicationController
 
     article = Article.new
     article.comment = comment
+    article.category = params[:category]
+    puts "TEST"
+    puts params[:category]
+    puts article.category
 
     if article.save
       puts "saved"
