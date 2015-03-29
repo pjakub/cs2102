@@ -38,12 +38,9 @@
             <li> <%= link_to "Log In", new_user_session_path %> </li>
         <% else %>
             <li class="active"> <%= link_to "My Account", account_path %> </li>
-
-            <!-- TODO Change button_to to bootstrap format -->
-
-            <li style="padding-top:7px;"> <%= button_to "Logout", @current_user_session,
+            <li> <%= link_to "Logout", new_user_session_path,
                                :method => :delete,
-                               :confirm => "Are you sure you want to logout?", class:"btn btn-default"%> </li>
+                               :confirm => "Are you sure you want to logout?"%> </li>
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->

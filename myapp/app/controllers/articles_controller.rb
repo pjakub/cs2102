@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
     if article_owner_is_current
       @article = Article.find(params[:id])
     else
-      error.add("Do not have Permissions to edit!")
+      #error.add("Do not have Permissions to edit!")
     end
   end
 

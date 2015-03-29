@@ -16,21 +16,30 @@
 
     <p>
       <%= f.label :title %><br>
-      <%= f.text_field :title %>
+      <%= f.text_field :title, class:"form-control"%>
     </p>
 
     <p>
       <%= f.label :text %><br>
-      <%= f.text_area :text %>
+      <%= f.text_area :text, class:"form-control",rows:"3" %>
     </p>
 
     <p>
       <%= f.label :category %><br>
-      <%= f.select :category, Article::PROPERTY_OPTIONS %>
+      <select name="post[category]" class="form-control">
+        <option value="">Select Category</option>
+        <option value="news">News</option>
+        <option value="technology">Technology</option>
+        <option value="business">Business</option>
+      </select>
     </p>
 
     <p>
-      <%= f.submit %>
+      <%= f.submit class:"btn btn-default" %>
     </p>
 
 <% end %>
+
+
+
+
