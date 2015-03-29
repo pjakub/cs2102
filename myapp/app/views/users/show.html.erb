@@ -1,5 +1,11 @@
 
 <div class="span6" style="padding-top:30px;">
+    <p>
+      <b>Name:</b>
+      <%= @user.first_name %> <%= @user.last_name %>
+
+    </p>
+
 
     <p>
       <b>Email:</b>
@@ -37,5 +43,4 @@
     </p>
 
     <%= link_to 'Edit Account', edit_account_path %>
-
 </div>
