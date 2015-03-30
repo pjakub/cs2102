@@ -10,11 +10,15 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    if Article::PROPERTY_OPTIONS.has_key?(params[:category])
+    puts params[:category]
+    if Article::PROPERTY_OPTIONS.has_value?(params[:category])
       @articles = Article.where(:category => params[:category])
     else
       @articles = Article.all
     end
+
+    @articles = @articles.paginate(:page => params[:page], :per_page => 2)
+
   end
 
   def edit
@@ -42,10 +46,7 @@ class ArticlesController < ApplicationController
 
     article = Article.new
     article.comment = comment
-    article.category = params[:category]
-    puts "TEST"
-    puts params[:category]
-    puts article.category
+    article.category = Article::PROPERTY_OPTIONS[params[:category]]
 
     if article.save
       puts "saved"
