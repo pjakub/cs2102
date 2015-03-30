@@ -26,7 +26,7 @@
 
     <p>
       <label name="category" %></label><br>
-      <%= select_tag "category", options_for_select(Article::PROPERTY_OPTIONS) %>
+      <%= select_tag "category", options_for_select(Article::PROPERTY_OPTIONS.keys) %>
     </p>
 
     <p>

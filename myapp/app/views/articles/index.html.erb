@@ -1,7 +1,7 @@
 <h1> Listing Articles </h1>
 
 <%= Article::PROPERTY_OPTIONS.each do |key, value| %>
-    <%= link_to value, articles_path(:category => key) %>
+    <%= link_to key, articles_path(:category => value) %>
 <% end %>
 <br>
 <%= link_to "New Article", new_article_path %>
@@ -31,6 +31,7 @@
 
 
   <% end %>
+  <%= will_paginate @articles %>
 
 </table>
 
