@@ -27,6 +27,13 @@ module ApplicationHelper
 
   end
 
+  def date_of_commentable(object)
+    comment = object.comment
+    unless comment.nil?
+      comment.created_at.to_s(:long)
+    end
+  end
+
   def number_of_likes_of_commentable(object)
       comment = object.comment
       unless comment.nil?
@@ -42,5 +49,6 @@ module ApplicationHelper
       @current_user.like!(object.comment)
     end
   end
+
 
 end

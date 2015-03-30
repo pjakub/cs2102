@@ -11,7 +11,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    puts params
+    puts "TESTT"
+    puts params[:comment]
 
     comment = Comment.new
     comment.comment = params[:comment]
