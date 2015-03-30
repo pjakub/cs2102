@@ -5,7 +5,7 @@
   <meta http-equiv="Content-type" content="text/html; charset=us-ascii">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>DataTables example - Bootstrap</title>
+  <title>Stripes</title>
   <link rel="shortcut icon" type="image/png" href="/media/images/favicon.png">
   <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
   <link rel="stylesheet" type="text/css" href="/media/css/site.css?_=49e03a77423748a3bf40c035be088f3b">
@@ -38,15 +38,11 @@
             <button type="button" class="btn btn-default">
               <%= link_to "All", articles_path(:category => "all") %>
             </button>
-            <button type="button" class="btn btn-default">
-              <%= link_to "Business", articles_path(:category => "business") %>
-            </button>
-            <button type="button" class="btn btn-default">
-              <%= link_to "News", articles_path(:category => "news") %>
-            </button>
-            <button type="button" class="btn btn-default">
-              <%= link_to "Technology", articles_path(:category => "technology") %>
-            </button>
+            <% Article::PROPERTY_OPTIONS.each do |key, value| %>
+                <button type="button" class="btn btn-default">
+                  <%= link_to key, articles_path(:category => value) %>
+                </button>
+            <% end %>
           </div>
 
           <table id="tableDope" class="table table-striped" cellspacing="0" width="100%">
@@ -63,8 +59,8 @@
             <% @articles.each do |article| %>
 
                 <tr>
-                  <td> <%= link_to article.title, article_path(article) %> </td>
-                  <td> <%= article.text %> </td>
+                  <td> <%= link_to article.comment.title, article_path(article) %> </td>
+                  <td> <%= article.comment.comment %> </td>
                   <td> <%= article.category %> </td>
                   <td>
                     <%= link_to ' Edit', edit_article_path(article), :class => 'btn btn-mini btn-default glyphicon glyphicon-edit' %>

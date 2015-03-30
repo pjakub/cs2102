@@ -1,7 +1,8 @@
 class CreateUsers <ActiveRecord::Migration
     def change
       create_table :users do |t|
-        t.string    :name,                :null => false, :default => ''
+        t.string    :first_name,          :null => false, :default => ''
+        t.string    :last_name,           :null => false, :default => ''
         t.string    :email,               :null => false
         t.string    :crypted_password,    :null => false
         t.string    :password_salt,       :null => false
@@ -17,6 +18,8 @@ class CreateUsers <ActiveRecord::Migration
         t.datetime  :last_login_at
         t.string    :current_login_ip
         t.string    :last_login_ip
+
+        t.references :comment, index: true
 
         t.timestamps
       end

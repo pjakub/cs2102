@@ -1,7 +1,7 @@
 <%= form_for @article do |f| %>
 
     <% if @article.errors.any? %>
-        <div id="error_explanation">
+        <div id="error_explanation" xmlns="http://www.w3.org/1999/html">
           <h2>
             <%= pluralize(@article.errors.count, "error") %> prohibited
             this article from being saved:
@@ -16,22 +16,18 @@
 
     <p>
       <%= f.label :title %><br>
-      <%= f.text_field :title, class:"form-control"%>
+      <input type="text" name="title" id="title" placeholder="Enter Title" class="form-control" />
     </p>
 
     <p>
       <%= f.label :text %><br>
-      <%= f.text_area :text, class:"form-control",rows:"3" %>
+      <textarea type="text" name="comment" id="comment" placeholder="Enter details" rows="3" class="form-control" >
+      </textarea>
     </p>
 
     <p>
       <%= f.label :category %><br>
-      <select name="post[category]" class="form-control">
-        <option value="">Select Category</option>
-        <option value="news">News</option>
-        <option value="technology">Technology</option>
-        <option value="business">Business</option>
-      </select>
+      <%= select_tag "category", options_for_select(Article::PROPERTY_OPTIONS.keys), class:"form-control" %>
     </p>
 
     <p>

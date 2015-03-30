@@ -1,8 +1,10 @@
 class Article < ActiveRecord::Base
-  belongs_to :user
-  PROPERTY_OPTIONS = [['News', 'news'],
-                      ['Technology', 'technology'],
-                      ['Business', 'business']]
-  validates :title, presence: true,
-                    length: { minimum: 5 }
+  has_many :posts, dependent: :destroy
+  has_many :replies, dependent: :destroy
+  has_one :comment, as: :commentable
+  is_impressionable
+  PROPERTY_OPTIONS = {'News' => 'news',
+                      'Technology'=> 'technology',
+                      'Business'=> 'business'}
+
 end

@@ -1,6 +1,7 @@
 require 'uri'
 
 class ArticlesController < ApplicationController
+  impressionist :actions=>[:show, :index]
   before_filter :require_user, only: [:new, :create, :edit, :destroy]
   before_filter :article_owner_is_current, only: [:edit, :destroy]
 
@@ -9,20 +10,13 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    puts Article.all.count
-    category = Rack::Utils.parse_query URI(request.original_url).query
-    puts category
-      if category['category'] == "business"
-        puts "hello business"
-        @articles = Article.where(:category => 'business')
-      elsif category['category'] == "news"
-        @articles = Article.where(:category => 'news')
-      elsif category['category'] == "technology"
-        @articles = Article.where(:category => 'technology')
-      else
-        @articles = Article.all
-      end
+    puts params[:category]
+    if Article::PROPERTY_OPTIONS.has_value?(params[:category])
+      @articles = Article.where(:category => params[:category])
+    else
+      @articles = Article.all
     end
+  end
 
   def edit
     if article_owner_is_current
@@ -33,20 +27,31 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    @article  = Article.find(params[:id])
+    @posts    = @article.posts
+
+    current_user
+    @user = @current_user
+
   end
 
   def create
-    puts article_params
-    @article = @current_user.articles.build(article_params)
-    if @article.save
+    comment = Comment.new
+    comment.title = params[:title]
+    comment.comment = params[:comment]
+    comment.user_id = @current_user.id
+
+    article = Article.new
+    article.comment = comment
+    article.category = Article::PROPERTY_OPTIONS[params[:category]]
+
+    if article.save
       puts "saved"
       redirect_to articles_path(@article)
     else
       puts "not saved"
       redirect_to articles_path
     end
-
 
   end
 
@@ -75,7 +80,7 @@ class ArticlesController < ApplicationController
 
     def article_owner_is_current
       @article = Article.find(params[:id])
-      if @article.user_id != @current_user.id
+      if @article.comment.user_id != @current_user.id
         store_location
         flash[:notice] = "You must be owner of thread to delete."
         redirect_to articles_path
