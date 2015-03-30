@@ -16,9 +16,6 @@ class ArticlesController < ApplicationController
     else
       @articles = Article.all
     end
-
-    @articles = @articles.paginate(:page => params[:page], :per_page => 2)
-
   end
 
   def edit
