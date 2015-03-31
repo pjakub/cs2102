@@ -1,0 +1,2 @@
+$("#reply-button-click-<%= @post.id %>").html("<%= j render('shared/number_replies', :post=> @post) %>")
+$("#replies-show-<%=@post.id%>").html("<%= j render('shared/replies', :post=> @post) %>");

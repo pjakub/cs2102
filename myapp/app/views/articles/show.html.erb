@@ -55,8 +55,24 @@
       <!-- Post Content -->
       <p class="lead"><%= comment_of_commentable(@article) %></p>
 
-      <button id="article-like" class="glyphicon glyphicon-thumbs-up" style="border: none; background:none"></button> <%= number_of_likes_of_commentable(@article)%>
-      <div>Answers: <%= @article.posts.count %></div>
+
+
+      <%= form_for [@article], :method => :put,  remote: true do |f| %>
+      <button
+              class="glyphicon glyphicon-thumbs-up"
+              style="border: none; background:none"
+              id="article-like">
+      </button>
+      <% end %>
+      <div id="article-like-section">
+        <%= render 'shared/article_like', :comment => @article.comment %>
+      </div>
+
+
+
+      <div id="answer-number">
+        <%= render 'shared/number_comments' %>
+      </div>
       <div>Views  : <%= @article.impressionist_count %></div>
       <hr>
       <!-- Blog Comments -->
@@ -65,7 +81,7 @@
 
       <div class="well">
         <h4>Leave a Comment:</h4>
-        <%= form_for [@article, @article.posts.build] do |f| %>
+        <%= form_for [@article, @article.posts.build], remote: true do |f| %>
             <form role="form">
               <div class="form-group">
                 <textarea class="form-control" rows="3" name="comment" id="comment" placeholder="Add a comment"></textarea>
@@ -79,73 +95,9 @@
       <hr>
 
       <!-- Posted Comments -->
-
-      <!-- Comment -->
-      <% if @posts.count > 0 %>
-          <% @posts.each do |post| %>
-              <% unless post.id == nil %>
-                  <div class="media">
-                    <a class="pull-left" href="#">
-                      <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading"><%= link_to user_name_of_commentable(post),
-                                                            user_path(post.comment.user)  %>
-                        <small><%= date_of_commentable(post) %> </small>
-                        <small style="padding-left: 10px">
-                          <button id="comment-like" class="glyphicon glyphicon-thumbs-up" style="border: none; background:none"></button>
-                          <%= number_of_likes_of_commentable(post)%>
-                        </small>
-                        <small>
-                          <button id="reply-button-click" style="padding-left: 10px; border: none; background:none ">
-                            Replies <span class="badge"><%= post.replies.count %></span>
-                          </button>
-                        </small>
-                      </h4>
-                      <p  style="min-height: 30px"><%= comment_of_commentable(post) %></p>
-                      <%= form_for [@article,post,post.replies.build] do |f| %>
-                          <form role="form">
-                            <div class="form-group">
-                              <textarea class="form-control" rows="2" name="comment" id="comment" placeholder="Add your answer"></textarea>
-                            </div>
-                            <%= f.submit "Submit" %>
-                          </form>
-                      <% end %>
-                      <% if post.replies.count > 0 %>
-                        <% post.replies.each do |reply| %>
-                          <% unless reply.id == nil %>
-                              <div class="media">
-                                <a class="pull-left" href="#">
-                                  <img class="media-object" src="http://placehold.it/64x64" alt="">
-                                </a>
-                                <div class="media-body">
-                                  <h4 class="media-heading"><%= link_to user_name_of_commentable(reply),
-                                                                        user_path(reply.comment.user)  %>
-                                    <small><%=date_of_commentable(reply) %></small>
-                                    <small style="padding-left: 10px">
-                                      <button id="reply-like" class="glyphicon glyphicon-thumbs-up" style="border: none; background:none"></button>
-                                      <%= number_of_likes_of_commentable(reply)%>
-                                    </small>
-                                  </h4>
-                                  <%= comment_of_commentable(reply) %>
-                                </div>
-                              </div>
-                          <% end %>
-                        <% end %>
-                      <% end %>
-                    </div>
-
-                  </div>
-              <% end %>
-          <% end %>
-      <% else %>
-          <div class="row">
-            <div class="col-lg-12">
-              <h4>Be the first to answer!</h4>
-            </div>
-          </div>
-      <% end %>
-
+      <div id="show-posts">
+        <%= render 'shared/comments'%>
+      </div>
     </div>
 
     <!-- Blog Sidebar Widgets Column -->
@@ -157,26 +109,11 @@
         <div class="row">
           <div class="col-lg-6">
             <ul class="list-unstyled">
-              <li><a href="#">Category Name</a>
-              </li>
-              <li><a href="#">Category Name</a>
-              </li>
-              <li><a href="#">Category Name</a>
-              </li>
-              <li><a href="#">Category Name</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-6">
-            <ul class="list-unstyled">
-              <li><a href="#">Category Name</a>
-              </li>
-              <li><a href="#">Category Name</a>
-              </li>
-              <li><a href="#">Category Name</a>
-              </li>
-              <li><a href="#">Category Name</a>
-              </li>
+              <% Article::PROPERTY_OPTIONS.each do |key, value| %>
+                  <li>
+                    <%= link_to key, articles_path(:category => value) %>
+                  </li>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -196,15 +133,7 @@
 
   <hr>
 
-  <!-- Footer -->
-  <footer>
-    <div class="row">
-      <div class="col-lg-12">
-        <p>Copyright &copy; Your Website 2014</p>
-      </div>
-    </div>
-    <!-- /.row -->
-  </footer>
+
 
 </div>
 <!-- /.container -->

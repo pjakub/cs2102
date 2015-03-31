@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
 
   resources :articles do
+    get :toggle_likes, on: :member
     resources :posts do
       resources :replies
     end
   end
+
+
 
   root 'articles#index'
 
@@ -39,7 +42,7 @@ end
   #   resources :products do
   #     member do
   #       get 'short'
-  #       post 'toggle'
+  #       posts 'toggle'
   #     end
   #
   #     collection do
@@ -63,7 +66,7 @@ end
 
   # Example resource route with concerns:
   #   concern :toggleable do
-  #     post 'toggle'
+  #     posts 'toggle'
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
