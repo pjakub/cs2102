@@ -9,28 +9,32 @@
               <div class="media-body">
                 <h4 class="media-heading"><%= link_to user_name_of_commentable(post),
                                                       user_path(post.comment.user)  %>
-                  <small><%= date_of_commentable(post) %> </small>
-                  <small style="padding-left: 10px">
-                    <%= form_for [@article, post], :method => :put,  remote: true do |f| %>
-                        <button id="comment-like" class="glyphicon glyphicon-thumbs-up" style="border: none; background:none"></button>
-                    <% end %>
-                    <div id="post-like-section-<%= post.id %>">
-                      <%= render 'shared/article_like', :comment => post.comment %>
-                    </div>
-                  </small>
-                  <div id="reply-button-click-<%= post.id %>">
-                        <%= render 'shared/number_replies', :post => post %>
+                  <div>
+                      <div style="display:inline-block">
+                        <small><%= date_of_commentable(post) %> </small>
+                      </div>
+                      <div style="display:inline-block">
+                        <%= form_for [@article, post], :method => :put,  remote: true do |f| %>
+                            <button id="comment-like" class="glyphicon glyphicon-thumbs-up" style="border: none; background:none"></button>
+                        <% end %>
+                      </div>
+                      <div id="post-like-section-<%= post.id %>" style="display:inline-block">
+                        <%= render 'shared/article_like', :comment => post.comment %>
+                      </div>
+                      <div id="reply-button-click-<%= post.id %>" style="display:inline-block">
+                            <%= render 'shared/number_replies', :post => post %>
+                      </div>
                   </div>
-
                 </h4>
                 <p  style="min-height: 30px"><%= comment_of_commentable(post) %></p>
                 <div id="reply-section">
                     <%= form_for [@article,post,post.replies.build], remote: true do |f| %>
                         <form role="form">
                           <div class="form-group">
-                            <textarea class="form-control" rows="2" name="comment" id="comment" placeholder="Add your answer"></textarea>
+                            <textarea class="form-control" rows="2" name="comment" id="comment-<%=post.id %>" placeholder="Add your answer"></textarea>
+                            <%= f.submit "Submit"%>
                           </div>
-                          <%= f.submit "Submit" %>
+
                         </form>
                     <% end %>
                     <div id="replies-show-<%=post.id%>">

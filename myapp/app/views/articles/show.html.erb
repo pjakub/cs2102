@@ -43,37 +43,38 @@
 
       <!-- Author -->
       <p class="lead">
-        by <a href="#"><%= link_to user_name_of_commentable(@article),
-                                   user_path(@article.comment.user)  %></a>
+        by <%= link_to user_name_of_commentable(@article),
+                       user_path(@article.comment.user)  %>
       </p>
 
-      <!-- Date/Time -->
-      <p><span class="glyphicon glyphicon-time"></span> Posted on <%= date_of_commentable(@article) %></p>
+      <div>
+        <div style="display:inline-block">
+            <p><span class="glyphicon glyphicon-time"></span> Posted on <%= date_of_commentable(@article) %></p>
+        </div>
+        <div style="display:inline-block">
+            <%= form_for [@article], :method => :put,  remote: true do |f| %>
+                  <button
+                      class="glyphicon glyphicon-thumbs-up"
+                      style="border: none; background:none"
+                      id="article-like">
+                  </button>
 
+            <% end %>
+        </div>
+        <div id="article-like-section" style="display:inline-block">
+          <%= render 'shared/article_like', :comment => @article.comment %>
+        </div>
+
+        <div id="answer-number" style="display:inline-block">
+            <%= render 'shared/number_comments' %>
+      ` </div>
+        <div style="display:inline-block">Views:<span class="badge"><%= @article.impressionist_count %></span></div>
+      </div>
       <hr>
 
       <!-- Post Content -->
       <p class="lead"><%= comment_of_commentable(@article) %></p>
 
-
-
-      <%= form_for [@article], :method => :put,  remote: true do |f| %>
-      <button
-              class="glyphicon glyphicon-thumbs-up"
-              style="border: none; background:none"
-              id="article-like">
-      </button>
-      <% end %>
-      <div id="article-like-section">
-        <%= render 'shared/article_like', :comment => @article.comment %>
-      </div>
-
-
-
-      <div id="answer-number">
-        <%= render 'shared/number_comments' %>
-      </div>
-      <div>Views  : <%= @article.impressionist_count %></div>
       <hr>
       <!-- Blog Comments -->
 

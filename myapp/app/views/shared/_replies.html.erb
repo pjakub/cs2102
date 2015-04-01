@@ -8,17 +8,21 @@
               <div class="media-body">
                 <h4 class="media-heading"><%= link_to user_name_of_commentable(reply),
                                                       user_path(reply.comment.user)  %>
-                  <small><%=date_of_commentable(reply) %></small>
-                  <small style="padding-left: 10px">
-                    <%= form_for [@article, post, reply], :method => :put,  remote: true do |f| %>
-                        <button id="reply-like"
-                            class="glyphicon glyphicon-thumbs-up"
-                            style="border: none; background:none; padding-bottom: 5px"></button>
-                    <% end %>
-                        <div id="reply-like-section-<%= reply.id %>">
-                          <%= render 'shared/article_like', :comment => reply.comment %>
-                        </div>
-                  </small>
+                  <div>
+                      <div style="display:inline-block">
+                        <small><%=date_of_commentable(reply) %></small>
+                      </div>
+                      <div style="display:inline-block">
+                        <%= form_for [@article, post, reply], :method => :put,  remote: true do |f| %>
+                            <button id="reply-like"
+                                class="glyphicon glyphicon-thumbs-up"
+                                style="border: none; background:none; padding-bottom: 5px"></button>
+                        <% end %>
+                      </div>
+                      <div id="reply-like-section-<%= reply.id %>" style="display:inline-block">
+                        <%= render 'shared/article_like', :comment => reply.comment %>
+                      </div>
+                  </div>
                 </h4>
                 <%= comment_of_commentable(reply) %>
               </div>
