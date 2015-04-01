@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_filter :require_user, only: [:new, :create, :edit, :destroy]
-  before_filter :post_owner_is_current, only: [:edit, :destroy]
+  before_filter :require_user, only: [:new, :create, :edit, :destroy, :update]
+  before_filter :post_owner_is_current, only: [ :destroy]
 
   def new
     @post = Post.new
@@ -11,28 +11,48 @@ class PostsController < ApplicationController
   end
 
   def create
-    puts params
-
     comment = Comment.new
     comment.comment = params[:comment]
     comment.user_id = @current_user.id
 
-    article = Article.find(params[:article_id])
+    @article = Article.find(params[:article_id])
 
-    post = Post.new
-    post.article = article;
-    post.comment = comment;
+    @post = Post.new
+    @post.article = @article;
+    @post.comment = comment;
 
-    if post.save
+    if @post.save
       puts "saved"
     else
       puts "not saved"
     end
-    redirect_to article_path(article)
+
+    @posts    = @article.posts.order('created_at DESC')
+
+    respond_to do |format|
+      format.html {redirect_to article_path(@article)}
+      format.js
+    end
+
+
 
   end
 
   def update
+
+    @post = Post.find(params[:id])
+    @article = Article.find(params[:article_id])
+
+    if @current_user.likes?(@post.comment)
+      @current_user.unlike!(@post.comment)
+    else
+      @current_user.like!(@post.comment)
+    end
+
+    respond_to do |format|
+      format.html {redirect_to article_path(@article)}
+      format.js
+    end
 
   end
 

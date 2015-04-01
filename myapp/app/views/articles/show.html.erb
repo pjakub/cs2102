@@ -1,60 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="span6" style="padding-top:30px;">
-    <p>
-      <strong>Title:</strong>
-      <%= @article.comment.title %>
-    </p>
+<head>
 
-    <p>
-      <strong>Text:</strong>
-      <%= @article.comment.comment %>
-    </p>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <p>
-      <strong>Category:</strong>
-      <%= @article.category %>
-    </p>
+  <title>Blog Post - Start Bootstrap Template</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/blog-post.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <!-- Blog Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Blog Post -->
+
+      <!-- Title -->
+      <h1><%= title_of_commentable(@article) %></h1>
+
+      <!-- Author -->
+      <p class="lead">
+        by <%= link_to user_name_of_commentable(@article),
+                       user_path(@article.comment.user)  %>
+      </p>
+
+      <div>
+        <div style="display:inline-block">
+            <p><span class="glyphicon glyphicon-time"></span> Posted on <%= date_of_commentable(@article) %></p>
+        </div>
+        <div style="display:inline-block">
+            <%= form_for [@article], :method => :put,  remote: true do |f| %>
+                  <button
+                      class="glyphicon glyphicon-thumbs-up"
+                      style="border: none; background:none"
+                      id="article-like">
+                  </button>
+
+            <% end %>
+        </div>
+        <div id="article-like-section" style="display:inline-block">
+          <%= render 'shared/article_like', :comment => @article.comment %>
+        </div>
+
+        <div id="answer-number" style="display:inline-block">
+            <%= render 'shared/number_comments' %>
+      ` </div>
+        <div style="display:inline-block">Views:<span class="badge"><%= @article.impressionist_count %></span></div>
+      </div>
+      <hr>
+
+      <!-- Post Content -->
+      <p class="lead"><%= comment_of_commentable(@article) %></p>
+
+      <hr>
+      <!-- Blog Comments -->
+
+      <!-- Comments Form -->
+
+      <div class="well">
+        <h4>Leave a Comment:</h4>
+        <%= form_for [@article, @article.posts.build], remote: true do |f| %>
+            <form role="form">
+              <div class="form-group">
+                <textarea class="form-control" rows="3" name="comment" id="comment" placeholder="Add a comment"></textarea>
+              </div>
+              <%= f.submit "Comment" %>
+            </form>
+        <% end %>
+      </div>
+
+
+      <hr>
+
+      <!-- Posted Comments -->
+      <div id="show-posts">
+        <%= render 'shared/comments'%>
+      </div>
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4" style="padding-top: 30px">
+
+      <!-- Blog Categories Well -->
+      <div class="well">
+        <h4>Blog Categories</h4>
+        <div class="row">
+          <div class="col-lg-6">
+            <ul class="list-unstyled">
+              <% Article::PROPERTY_OPTIONS.each do |key, value| %>
+                  <li>
+                    <%= link_to key, articles_path(:category => value) %>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+
+      <!-- Side Widget Well -->
+      <div class="well">
+        <h4><%= Article::PROPERTY_OPTIONS.index(@article.category) %> Section</h4>
+        <p>Please stay on topic and apply forum rules.</p>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+  <hr>
+
+
 
 </div>
+<!-- /.container -->
 
-<label><%= number_of_likes_of_commentable(@article) %> Likes</label>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
 
-<%= @posts.count %><label> ANSWERS</label><br>
-<% unless @user.blank? %>
-   <label><%= @user.first_name %> <%= @user.last_name %></label><br>
-    <%= form_for [@article, @article.posts.build] do |f| %>
-        <textarea
-               placeholder="Write your answer"
-               id="comment"
-               name="comment"></textarea>
-        <%= f.submit %>
-    <% end %>
-<% end %>
-<br><br>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 
-<% if @posts.count>0 %>
-    <% @posts.each do |post| %>
-        <% unless post.id == nil %>
-            <label><%= user_name_of_commentable(post) %></label><br>
-            <label><%= comment_of_commentable(post) %></label>
-            <%= post.replies.count %><label> Comments</label><br>
-            <%= form_for [@article, post, post.replies.build] do |f| %>
-                <textarea
-                placeholder="Add a comment..."
-                id="comment"
-                name="comment"></textarea>
-                <%= f.submit %>
-            <% end %>
-            <% if post.replies.count > 0 %>
-                <% post.replies.each do |reply| %>
-                    <label><%= user_name_of_commentable(reply) %></label><br>
-                    <label><%= comment_of_commentable(reply) %></label><br>
-                <% end %>
-            <% end %>
-            <br><br>
-        <% end %>
-    <% end %>
-<% end %>
+</body>
+
+</html>
+
+
 
 
 

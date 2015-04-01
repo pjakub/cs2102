@@ -2,8 +2,8 @@ require 'uri'
 
 class ArticlesController < ApplicationController
   impressionist :actions=>[:show, :index]
-  before_filter :require_user, only: [:new, :create, :edit, :destroy]
-  before_filter :article_owner_is_current, only: [:edit, :destroy]
+  before_filter :require_user, only: [:new, :create, :edit, :destroy, :update]
+  before_filter :article_owner_is_current, only:[:destroy]
 
   def new
     @article = Article.new
@@ -30,6 +30,7 @@ class ArticlesController < ApplicationController
     @article  = Article.find(params[:id])
     @posts    = @article.posts
 
+    @posts    = @posts.order('created_at DESC')
     current_user
     @user = @current_user
 
@@ -55,15 +56,24 @@ class ArticlesController < ApplicationController
 
   end
 
+  #I am using update to update the likes
   def update
     @article = Article.find(params[:id])
 
-    if @article.update(article_params)
-      redirect_to @article
+    if @current_user.likes?(@article.comment)
+      @current_user.unlike!(@article.comment)
     else
-      render 'edit'
+      @current_user.like!(@article.comment)
+    end
+
+    puts "HI TEST"
+    respond_to do |format|
+      format.html {redirect_to article_path(article)}
+      format.js
     end
   end
+
+
 
   def destroy
     @article = Article.find(params[:id])
@@ -71,7 +81,6 @@ class ArticlesController < ApplicationController
 
     redirect_to articles_path
   end
-
 
   private
     def article_params

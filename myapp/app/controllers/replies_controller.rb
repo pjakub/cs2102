@@ -1,7 +1,7 @@
 class RepliesController < ApplicationController
 
-  before_filter :require_user, only: [:new, :create, :edit, :destroy]
-  before_filter :reply_owner_is_current, only: [:edit, :destroy]
+  before_filter :require_user, only: [:new, :create, :edit, :destroy, :update]
+  before_filter :reply_owner_is_current, only: [:destroy]
 
   def new
     @reply = Reply.new
@@ -18,21 +18,41 @@ class RepliesController < ApplicationController
     comment.comment = params[:comment]
     comment.user_id = @current_user.id
 
-    article = Article.find(params[:article_id])
-    post    = Post.find(params[:post_id])
+    @article = Article.find(params[:article_id])
+    @post    = Post.find(params[:post_id])
 
-    reply = Reply.new
-    reply.article = article
-    reply.post    = post
-    reply.comment = comment
+    @reply = Reply.new
+    @reply.article = @article
+    @reply.post    = @post
+    @reply.comment = comment
 
-    if reply.save
+    if @reply.save
       puts "saved"
     else
       puts "not saved"
     end
-    redirect_to article_path(article)
 
+    respond_to do |format|
+      format.html {redirect_to article_path(@article)}
+      format.js
+    end
+
+  end
+
+  def update
+    @article = Article.find(params[:article_id])
+    @reply = Reply.find(params[:id])
+
+    if @current_user.likes?(@reply.comment)
+      @current_user.unlike!(@reply.comment)
+    else
+      @current_user.like!(@reply.comment)
+    end
+
+    respond_to do |format|
+      format.html {redirect_to article_path(@article)}
+      format.js
+    end
   end
 
   private
