@@ -12,9 +12,9 @@ class ArticlesController < ApplicationController
   def index
     puts params[:category]
     if Article::PROPERTY_OPTIONS.has_value?(params[:category])
-      @articles = Article.where(:category => params[:category])
+      @articles = Article.where(:category => params[:category]).paginate(:page => params[:page], :per_page => 3)
     else
-      @articles = Article.all
+      @articles = Article.all.paginate(:page => params[:page], :per_page => 3)
     end
   end
 

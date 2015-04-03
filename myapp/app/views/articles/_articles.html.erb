@@ -1,0 +1,32 @@
+<div class="col-sm-9">
+  <% if @articles.any? %>
+      <% @articles.each do |article| %>
+          <div class="row">
+            <div class="col-xs-12">
+              <h2><%=article.comment.title%></h2>
+              <p><%= article.comment.comment %></p>
+              <p class="lead">
+                <button type="button" class="btn btn-default">
+                  <%= link_to "Read More", article_path(article) %>
+                </button>
+              </p>
+              <ul class="list-inline">
+                <li><a href="#">Posted <%= time_ago_in_words(article.created_at) %> ago</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> <%= article.posts.count%> Comments</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i> <%= article.impressionist_count %> Views</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> <%= render 'shared/article_like', :comment => article.comment %> Likes</a></li>
+                <li> <%= link_to "Destroy", article_path(article), :method => :delete, :confirm => "Are you sure?", :class => "glyphicon glyphicon-remove", :id => "destroy" %></li>
+              </ul>
+            </div>
+          </div>
+          <hr>
+      <%end%>
+  <%else%>
+    <h3>No Articles!! Please create content by clicking "New" :)</h3>
+  <% end %>
+
+  <%=will_paginate @articles, renderer: BootstrapPagination::Rails %>
+</div><!--/center-->
+
+
+

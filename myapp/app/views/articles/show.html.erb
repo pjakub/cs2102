@@ -62,7 +62,7 @@
             <% end %>
         </div>
         <div id="article-like-section" style="display:inline-block">
-          <%= render 'shared/article_like', :comment => @article.comment %>
+          <span class="badge"><%= render 'shared/article_like', :comment => @article.comment %></span>
         </div>
 
         <div id="answer-number" style="display:inline-block">

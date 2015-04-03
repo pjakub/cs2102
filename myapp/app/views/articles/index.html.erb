@@ -1,84 +1,66 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-type" content="text/html; charset=us-ascii">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Group40</title>
 
-  <title>Stripes</title>
-  <link rel="shortcut icon" type="image/png" href="/media/images/favicon.png">
-  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
-  <link rel="stylesheet" type="text/css" href="/media/css/site.css?_=49e03a77423748a3bf40c035be088f3b">
-  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">
-  <style type="text/css" class="init">
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
-      body { font-size: 140%; }
+<style type="text/css">
 
-  </style>
-  <script type="text/javascript" src="/media/js/site.js?_=1b28ecea55524280aab311976b223951"></script>
-  <script type="text/javascript" src="/media/js/dynamic.php?comments-page=examples%2Fstyling%2Fbootstrap.html" async=""></script>
-  <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-  <script type="text/javascript" language="javascript" src="../resources/demo.js"></script>
-  <script type="text/javascript" class="init">
+  body {
+      padding-top: 70px;
+  }
 
-      $(document).ready(function() {
-          $('#tableDope').dataTable();
-      } );
+</style>
 
-  </script>
 
 </head>
-    <body>
-      <div class="fw-body">
-        <div class="content">
-          <div class="btn-group" role="group" aria-label="..." style="padding-bottom: 3%;padding-top: 3%" >
-            <button type="button" class="btn btn-default">
-              <%= link_to "All", articles_path(:category => "all") %>
-            </button>
-            <% Article::PROPERTY_OPTIONS.each do |key, value| %>
-                <button type="button" class="btn btn-default">
-                  <%= link_to key, articles_path(:category => value) %>
-                </button>
-            <% end %>
-          </div>
 
-          <table id="tableDope" class="table table-striped" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-              <th> Title </th>
-              <th> Text </th>
-              <th> Category </th>
-              <th> </th>
-            </tr>
-            </thead>
+<body>
 
-            <tbody>
-            <% @articles.each do |article| %>
+<div class="container-fluid">
 
-                <tr>
-                  <td> <%= link_to article.comment.title, article_path(article) %> </td>
-                  <td> <%= article.comment.comment %> </td>
-                  <td> <%= article.category %> </td>
-                  <td>
-                    <%= link_to ' Edit', edit_article_path(article), :class => 'btn btn-mini btn-default glyphicon glyphicon-edit' %>
-                    <%= link_to " Destroy", article_path(article), :method => :delete,
-                                                                   :confirm => "Are you sure?",
-                                                                   :class => 'btn btn-mini btn-danger glyphicon glyphicon-remove',
-                                                                   :id => "destroy" %>
-                  </td>
-                </tr>
+  <!--center-->
 
-            <% end %>
-            <tbody>
-          </table>
+  <div class = "sort_paginate_ajax"><%= render 'articles' %></div>
 
-        </div>
+  <!--/center-->
 
-        <%= link_to ' New', new_article_path, :class => 'btn btn-primary glyphicon glyphicon-plus' %>
-
+  <!--right-->
+  <div class="col-sm-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">Create Article</div>
+      <div class="panel-body">
+        <div class = "create_link_ajax"><%= render 'creates' %></div>
       </div>
-    </body>
+    </div>
+    <hr>
+    <div class="panel panel-default">
+      <div class="panel-heading">Categories</div>
+      <div class="panel-body">
+          <%= link_to "All", articles_path(:category => "all") %>
+        <% Article::PROPERTY_OPTIONS.each do |key, value| %>
+            <div>
+              <%= link_to key, articles_path(:category => value) %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <hr>
+    <div class="panel panel-default">
+      <div class="panel-heading">Welcome</div>
+      <div class="panel-body">Group40 the project of CS2102</div>
+    </div>
+    <hr>
+  </div><!--/right-->
+  <hr>
+</div><!--/container-fluid-->
+
+
+</body>
 </html>
+
