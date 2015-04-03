@@ -1,22 +1,28 @@
 <%= render "shared/error_messages", :target => @user %>
 
+
+
+<div class="form-group">
+
 <p>
-  <%= form.label :first_name %><br />
-  <%= form.text_field :first_name %>
+  <%= form.text_field :first_name, class:"form-control input-lg", placeholder: "First Name" %>
 </p>
 <p>
-  <%= form.label :last_name %><br />
-  <%= form.text_field :last_name %>
+  <%= form.text_field :last_name, class:"form-control input-lg", placeholder: "Last Name" %>
 </p>
 <p>
-  <%= form.label :email %><br />
-  <%= form.text_field :email, class:"form-control", placeholder: "Email"%>
+  <%= form.text_field :email, class:"form-control input-lg", placeholder: "Email"%>
 </p>
 <p>
-  <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-  <%= form.password_field :password, class:"form-control", placeholder: "Password"%>
+  <%= form.password_field :password, class:"form-control input-lg", placeholder: "Password"%>
 </p>
 <p>
-  <%= form.label :password_confirmation %><br />
-  <%= form.password_field :password_confirmation, class:"form-control", placeholder: "Password Confirmation"%>
+  <%= form.password_field :password_confirmation, class:"form-control input-lg", placeholder: "Password Confirmation"%>
 </p>
+
+</div>
+
+
+
+
+

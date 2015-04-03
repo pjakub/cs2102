@@ -1,0 +1,13 @@
+<div class="container">
+
+
+  <div class="modal-header">
+    <h1 class="text-center">Update Account</h1>
+  </div>
+
+  <%= form_for @user do |f| %>
+      <%= render :partial => "form", :object => f, :locals => { :user => @user }%>
+      <%= f.submit "Update", class: "btn btn-lg btn-primary btn-block" %>
+  <% end %>
+
+</div> <!--/container-->
