@@ -2,13 +2,25 @@
 <div class="container">
 
 
-<div class="modal-header">
-  <h1 class="text-center">Register</h1>
+  <div class="col-sm-4">
+
+  </div>
+
+
+  <div class="col-sm-4">
+
+    <div class="modal-header">
+      <h1 class="text-center">Register</h1>
+    </div>
+
+
+
+    <%= form_for @user do |f| %>
+        <%= render :partial => "form", :object => f, :locals => { :user => @user }%>
+        <%= f.submit "Register", class: "btn btn-lg btn-primary btn-block" %>
+    <% end %>
+
 </div>
 
-<%= form_for @user do |f| %>
-    <%= render :partial => "form", :object => f, :locals => { :user => @user }%>
-    <%= f.submit "Register", class: "btn btn-lg btn-primary btn-block" %>
-<% end %>
 
 </div> <!--/container-->
